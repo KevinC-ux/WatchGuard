@@ -1,0 +1,10 @@
+fastapi>=0.68.0
+uvicorn>=0.15.0
+python-telegram-bot>=20.0
+apscheduler>=3.8.0
+python-dateutil>=2.8.0
+pytz>=2021.1
+Jinja2>=3.0.0
+python-multipart>=0.0.5
+psutil>=5.8.0
+argon2-cffi>=21.3.0

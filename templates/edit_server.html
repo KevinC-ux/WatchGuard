@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Server - WatchGuard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/nav-animations.js"></script>
+</head>
+<body class="bg-gradient">
+    
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-title">WatchGuard</h1>
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="nav-logo">WatchGuard</a>
+                <div class="nav-breadcrumb">
+                    <a href="/">Home</a>
+                    <span class="nav-breadcrumb-separator">></span>
+                    <a href="/servers">Servers</a>
+                    <span class="nav-breadcrumb-separator">></span>
+                    <span>Edit Server</span>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-menu-toggle" onclick="toggleNavMenu()">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="nav-dropdown" id="navDropdown">
+                    <a href="/">
+                        <span>🏠</span>
+                        Dashboard
+                    </a>
+                    <a href="/servers">
+                        <span>🖥️</span>
+                        Servers
+                    </a>
+                    <a href="/domains">
+                        <span>🌐</span>
+                        Domains
+                    </a>
+                    <a href="/add_server">
+                        <span>➕</span>
+                        Add Server
+                    </a>
+                    <a href="/add_domain">
+                        <span>➕</span>
+                        Add Domain
+                    </a>
+                    <a href="/settings">
+                        <span>⚙️</span>
+                        Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Edit Server</h1>
+        </div>
+
+        <div class="content-grid center-main">
+            <div class="main-content">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Edit Server Information</h2>
+                            <p class="header-description">Update the details for {{ server_name }}</p>
+                        </div>
+                    </div>
+                    
+                    <form id="editServerForm" class="form-container">
+                        <input type="hidden" name="original_name" value="{{ server_name }}">
+                        
+                        <div class="form-group">
+                            <label for="name">Server Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" 
+                                   value="{{ server_name }}" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Renewal Date *</label>
+                                <input type="date" id="date" name="date" class="form-input" 
+                                       value="{{ server.date }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="datacenter">Datacenter *</label>
+                                <input type="text" id="datacenter" name="datacenter" class="form-input" 
+                                       value="{{ server.datacenter }}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="price">Price *</label>
+                                <input type="number" id="price" name="price" class="form-input" 
+                                       value="{{ server.price.replace('$', '').replace('€', '') }}" 
+                                       step="any" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">Currency *</label>
+                                <select id="currency" name="currency" class="form-select" required>
+                                    <option value="USD" {% if server.currency == 'USD' %}selected{% endif %}>$ USD</option>
+                                    <option value="EUR" {% if server.currency == 'EUR' %}selected{% endif %}>€ EUR</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emoji">Server Icon (Optional)</label>
+                                <div class="emoji-input-group">
+                                    <div class="emoji-preview" id="emojiPreview">{{ server.emoji or '🔹' }}</div>
+                                    <input type="text" id="emoji" name="emoji" class="form-input emoji-input" 
+                                           value="{{ server.emoji or '' }}" 
+                                           placeholder="🇺🇸 🇬🇧 🇩🇪 🇫🇷" 
+                                           maxlength="2">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="label">Label (Optional)</label>
+                                <div class="label-input-container">
+                                    <div class="label-input-wrapper">
+                                        <input type="text" id="label" name="label" class="form-input" 
+                                               value="{{ server.label or '' }}"
+                                               placeholder="Enter label...">
+                                        {% if existing_labels %}
+                                        <button type="button" class="label-dropdown-btn" onclick="toggleLabelDropdown('edit-server')">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="m6 9 6 6 6-6"/>
+                                            </svg>
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                    {% if existing_labels %}
+                                    <div class="label-dropdown" id="label-dropdown-edit-server">
+                                        <div class="label-dropdown-content">
+                                                                                    <div class="label-dropdown-header">
+                                            <h3>Select Label</h3>
+                                            <button type="button" class="label-dropdown-close" onclick="closeLabelDropdown('edit-server')">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M18 6L6 18M6 6l12 12"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                            <div class="label-options-container">
+                                                {% for label in existing_labels %}
+                                                <div class="label-option" onclick="selectLabel('{{ label }}', 'edit-server')">
+                                                    {{ label }}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="glass-button secondary" onclick="goBack()">
+                                <span class="btn-icon">←</span>
+                                Cancel
+                            </button>
+                            <button type="submit" class="glass-button primary">
+                                Update Server
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification hidden"></div>
+
+    <script>
+        
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 1000);
+        });
+
+        
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.href && !e.target.href.includes('#')) {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.style.display = 'flex';
+                loadingScreen.classList.remove('hidden');
+            }
+        });
+
+        
+        
+
+        
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+        
+        document.getElementById('emoji').addEventListener('input', function() {
+            const emoji = this.value.trim();
+            const preview = document.getElementById('emojiPreview');
+            preview.textContent = emoji || '🔹';
+        });
+
+        function goBack() {
+            window.location.href = '/servers';
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+
+        
+        function toggleLabelDropdown(type) {
+            const dropdown = document.getElementById(`label-dropdown-${type}`);
+            const btn = event.target.closest('.label-dropdown-btn');
+            
+            
+            document.querySelectorAll('.label-dropdown').forEach(d => {
+                if (d !== dropdown) {
+                    d.classList.remove('active');
+                    d.previousElementSibling.querySelector('.label-dropdown-btn').classList.remove('active');
+                }
+            });
+            
+            
+            dropdown.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        function selectLabel(label, type) {
+            const input = document.getElementById('label');
+            input.value = label;
+            
+            
+            closeLabelDropdown(type);
+        }
+
+        function closeLabelDropdown(type) {
+            const dropdown = document.getElementById(`label-dropdown-${type}`);
+            const btn = dropdown.previousElementSibling.querySelector('.label-dropdown-btn');
+            dropdown.classList.remove('active');
+            btn.classList.remove('active');
+        }
+
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.label-input-container') && !e.target.closest('.label-dropdown-content')) {
+                document.querySelectorAll('.label-dropdown').forEach(d => {
+                    d.classList.remove('active');
+                });
+                document.querySelectorAll('.label-dropdown-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+
+        document.getElementById('editServerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            
+            submitBtn.innerHTML = 'Updating...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/servers/edit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showNotification('Server updated successfully!', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/servers';
+                    }, 1500);
+                } else {
+                    showNotification(result.message || 'Error updating server', 'error');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                showNotification('Network error occurred', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

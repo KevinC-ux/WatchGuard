@@ -1,0 +1,10 @@
+{
+    "warning_days": 5,
+    "notification_hour": 9,
+    "notification_minute": 0,
+    "daily_notifications": true,
+    
+    "web_panel_enabled": false,
+    "labels": ["watchguard"],
+    "version": "v1.0.0"
+}

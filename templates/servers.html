@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servers - WatchGuard</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/nav-animations.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/static/emoji-polyfill.js"></script>
+  </head>
+  <body class="bg-gradient">
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-content">
+        <h1 class="loading-title">WatchGuard</h1>
+        <div class="loading-progress">
+          <div class="loading-progress-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="top-nav">
+      <div class="nav-container">
+        <div class="nav-left">
+          <a href="/" class="nav-logo">WatchGuard</a>
+          <div class="nav-breadcrumb">
+            <a href="/">Home</a>
+            <span class="nav-breadcrumb-separator">></span>
+            <span>Servers</span>
+          </div>
+        </div>
+        <div class="nav-menu">
+          <button class="nav-menu-toggle" onclick="toggleNavMenu()">
+            <div class="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+          <div class="nav-dropdown" id="navDropdown">
+            <a href="/">
+              <span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 10.5 12 3l9 7.5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5 10.5V20h14v-9.5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              Dashboard
+            </a>
+            <a href="/servers">
+              <span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <rect
+                    x="3"
+                    y="4"
+                    width="18"
+                    height="12"
+                    rx="2"
+                    ry="2"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <rect
+                    x="9"
+                    y="18"
+                    width="6"
+                    height="2"
+                    rx="1"
+                    ry="1"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </span>
+              Servers
+            </a>
+            <a href="/domains">
+              <span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M3 12h18"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M12 3c2.5 2.7 4 6 4 9s-1.5 6.3-4 9M12 3c-2.5 2.7-4 6-4 9s1.5 6.3 4 9"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+              Domains
+            </a>
+            <a href="/add_server">
+              <span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+              Add Server
+            </a>
+            <a href="/add_domain">
+              <span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+              Add Domain
+            </a>
+            <a href="/settings">
+              <span>
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M19.4 15a1 1 0 0 1 .2 1.1l-1 1.7a1 1 0 0 1-1.1.5l-1.9-.6a7.2 7.2 0 0 1-1.1.7l-.3 2a1 1 0 0 1-1 .9h-2a1 1 0 0 1-1-.9l-.3-2a7.2 7.2 0 0 1-1.1-.7l-1.9.6a1 1 0 0 1-1.1-.5l-1-1.7a1 1 0 0 1 .2-1.1l1.6-1.3a7.6 7.6 0 0 1 0-1.4L4.5 11a1 1 0 0 1-.2-1.1l1-1.7a1 1 0 0 1 1.1-.5l1.9.6c.36-.26.74-.5 1.14-.69l.3-2a1 1 0 0 1 1-.89h2a1 1 0 0 1 1 .89l.3 2c.4.2.78.43 1.14.69l1.9-.6a1 1 0 0 1 1.1.5l1 1.7a1 1 0 0 1-.2 1.1l-1.6 1.3c.06.46.06.94 0 1.4l1.6 1.3Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </svg>
+              </span>
+              Settings
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="header">
+        <h1>Server Management</h1>
+      </div>
+
+      {% set has_servers = servers.expired or servers.warning or servers.safe %}
+      {% if has_servers %}
+      <div class="controls-bar">
+        <div class="filter-dropdown">
+          <button
+            class="glass-button filter-trigger"
+            onclick="toggleFilterDropdown()"
+          >
+            <span class="btn-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="M16.5 16.5L21 21"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+            Filter
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="filter-content">
+            <div class="filter-section">
+              <h4>Filter by Status</h4>
+
+              <a href="/servers?filter=expired" class="filter-item">
+                <span class="status-icon icon-expired">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="8"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M8 8l8 8M16 8l-8 8"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+                Expired Servers
+              </a>
+              <a href="/servers?filter=warning" class="filter-item">
+                <span class="status-icon icon-warning">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M12 4l9 16H3l9-16z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12 9v5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <circle cx="12" cy="17" r="1.2" fill="currentColor" />
+                  </svg>
+                </span>
+                Near Expiration
+              </a>
+              <a href="/servers?filter=safe" class="filter-item">
+                <span class="status-icon icon-safe">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 13l5 5L20 7"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                Active Servers
+              </a>
+            </div>
+
+            <div class="filter-section">
+              <h4>Filter by Label</h4>
+
+              {% if existing_labels %} {% for label in existing_labels %}
+              <a href="/servers?label={{ label }}" class="filter-item">
+                <span class="status-icon icon-tag">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M20 13l-7 7-9-9V4h7l9 9z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                    />
+                    <circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" />
+                  </svg>
+                </span>
+                {{ label }}
+              </a>
+              {% endfor %} {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem">
+          <button
+            class="glass-button secondary filter-cost-btn"
+            onclick="openServerCostModal()"
+          >
+            Cost Details
+          </button>
+
+          <a href="/add_server" class="glass-button primary">
+            <span class="btn-icon">+</span>
+            Add Server
+          </a>
+        </div>
+      </div>
+
+      <div class="content-grid full-width">
+        <div class="servers-layout">
+          <div class="servers-main">
+            <div class="glass-card list-container">
+              <div class="card-header">
+                <div>
+                  <h2>Server List</h2>
+                  <p class="header-description">
+                    Manage and monitor your server renewals
+                  </p>
+                </div>
+              </div>
+
+              <div class="server-list">
+                {% if servers.expired %}
+                <div
+                  class="section-header"
+                  style="
+                    border-left: 4px solid var(--error);
+                    background: linear-gradient(
+                      90deg,
+                      rgba(239, 68, 68, 0.1),
+                      var(--bg-secondary)
+                    );
+                  "
+                >
+                  <span class="status-icon icon-expired"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="8"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M8 8l8 8M16 8l-8 8"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      /></svg
+                  ></span>
+                  Expired Servers
+                </div>
+                {% for server in servers.expired %}
+                <div class="server-item expired">
+                  <div class="item-header">
+                    <div class="server-info">
+                      {% if server.emoji %}
+                      <span class="server-emoji">{{ server.emoji }}</span>
+                      {% else %}
+                      <span class="server-emoji icon">
+                        <svg
+                          class="icon-svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <rect
+                            x="3"
+                            y="4"
+                            width="18"
+                            height="12"
+                            rx="2"
+                            ry="2"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          />
+                          <rect
+                            x="9"
+                            y="18"
+                            width="6"
+                            height="2"
+                            rx="1"
+                            ry="1"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                      {% endif %}
+                      <span class="server-name">{{ server.name }}</span>
+                    </div>
+                    <div class="item-actions">
+                      <button
+                        class="action-btn edit"
+                        title="Edit Server"
+                        onclick="editServer('{{ server.name }}')"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M16.862 3.487a2 2 0 0 1 2.828 2.828L9 17.999l-4 1 1-4 10.862-11.512Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            fill="none"
+                          />
+                          <path
+                            d="M15 5l4 4"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        class="action-btn delete"
+                        title="Delete Server"
+                        onclick="deleteServer('{{ server.name }}')"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 7h12"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M7 7h10l-1 12a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2L7 7z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            fill="none"
+                          />
+                          <path
+                            d="M10 11v6M14 11v6"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="server-details">
+                    <div class="item-detail">
+                      • Renewal Date: {{ server.date }}
+                    </div>
+                    <div class="item-detail">
+                      • Status: {{ server.status_text }}
+                    </div>
+                    <div class="item-detail">• Price: {{ server.price }}</div>
+                    <div class="item-detail">
+                      • Datacenter: {{ server.datacenter }}
+                    </div>
+                    {% if server.label %}
+                    <div class="item-detail">• Label: {{ server.label }}</div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %} {% endif %} {% if servers.warning %}
+                <div
+                  class="section-header"
+                  style="
+                    border-left: 4px solid var(--warning);
+                    background: linear-gradient(
+                      90deg,
+                      rgba(245, 158, 11, 0.1),
+                      var(--bg-secondary)
+                    );
+                  "
+                >
+                  <span class="status-icon icon-warning"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 4l9 16H3l9-16z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12 9v5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                      <circle
+                        cx="12"
+                        cy="17"
+                        r="1.2"
+                        fill="currentColor"
+                      /></svg
+                  ></span>
+                  Servers Near Expiration
+                </div>
+                {% for server in servers.warning %}
+                <div class="server-item warning">
+                  <div class="item-header">
+                    <div class="server-info">
+                      {% if server.emoji %}
+                      <span class="server-emoji">{{ server.emoji }}</span>
+                      {% else %}
+                      <span class="server-emoji icon">
+                        <svg
+                          class="icon-svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <rect
+                            x="3"
+                            y="4"
+                            width="18"
+                            height="12"
+                            rx="2"
+                            ry="2"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          />
+                          <rect
+                            x="9"
+                            y="18"
+                            width="6"
+                            height="2"
+                            rx="1"
+                            ry="1"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                      {% endif %}
+                      <span class="server-name">{{ server.name }}</span>
+                    </div>
+                    <div class="item-actions">
+                      <button
+                        class="action-btn edit"
+                        title="Edit Server"
+                        onclick="editServer('{{ server.name }}')"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M16.862 3.487a2 2 0 0 1 2.828 2.828L9 17.999l-4 1 1-4 10.862-11.512Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            fill="none"
+                          />
+                          <path
+                            d="M15 5l4 4"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        class="action-btn delete"
+                        title="Delete Server"
+                        onclick="deleteServer('{{ server.name }}')"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 7h12"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M7 7h10l-1 12a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2L7 7z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            fill="none"
+                          />
+                          <path
+                            d="M10 11v6M14 11v6"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="server-details">
+                    <div class="item-detail">
+                      • Renewal Date: {{ server.date }}
+                    </div>
+                    <div class="item-detail">
+                      • Status: {{ server.status_text }}
+                    </div>
+                    <div class="item-detail">• Price: {{ server.price }}</div>
+                    <div class="item-detail">
+                      • Datacenter: {{ server.datacenter }}
+                    </div>
+                    {% if server.label %}
+                    <div class="item-detail">• Label: {{ server.label }}</div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %} {% endif %} {% if servers.safe %}
+                <div
+                  class="section-header"
+                  style="
+                    border-left: 4px solid var(--success);
+                    background: linear-gradient(
+                      90deg,
+                      rgba(16, 185, 129, 0.1),
+                      var(--bg-secondary)
+                    );
+                  "
+                >
+                  <span class="status-icon icon-safe"
+                    ><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M4 13l5 5L20 7"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      /></svg
+                  ></span>
+                  Active Servers
+                </div>
+                {% for server in servers.safe %}
+                <div class="server-item safe">
+                  <div class="item-header">
+                    <div class="server-info">
+                      {% if server.emoji %}
+                      <span class="server-emoji">{{ server.emoji }}</span>
+                      {% else %}
+                      <span class="server-emoji icon">
+                        <svg
+                          class="icon-svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <rect
+                            x="3"
+                            y="4"
+                            width="18"
+                            height="12"
+                            rx="2"
+                            ry="2"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          />
+                          <rect
+                            x="9"
+                            y="18"
+                            width="6"
+                            height="2"
+                            rx="1"
+                            ry="1"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                      {% endif %}
+                      <span class="server-name">{{ server.name }}</span>
+                    </div>
+                    <div class="item-actions">
+                      <button
+                        class="action-btn edit"
+                        title="Edit Server"
+                        onclick="editServer('{{ server.name }}')"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M16.862 3.487a2 2 0 0 1 2.828 2.828L9 17.999l-4 1 1-4 10.862-11.512Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            fill="none"
+                          />
+                          <path
+                            d="M15 5l4 4"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        class="action-btn delete"
+                        title="Delete Server"
+                        onclick="deleteServer('{{ server.name }}')"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 7h12"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M7 7h10l-1 12a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2L7 7z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                            fill="none"
+                          />
+                          <path
+                            d="M10 11v6M14 11v6"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="server-details">
+                    <div class="item-detail">
+                      • Renewal Date: {{ server.date }}
+                    </div>
+                    <div class="item-detail">
+                      • Status: {{ server.status_text }}
+                    </div>
+                    <div class="item-detail">• Price: {{ server.price }}</div>
+                    <div class="item-detail">
+                      • Datacenter: {{ server.datacenter }}
+                    </div>
+                    {% if server.label %}
+                    <div class="item-detail">• Label: {{ server.label }}</div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %} {% endif %} {% if current_filter and not
+                (servers.expired or servers.warning or servers.safe) %}
+                <div class="empty-state">
+                  <div class="empty-icon">🔍</div>
+                  <h3>No servers found for this section</h3>
+                  <p>
+                    You can use the button below to add a new server or return
+                    to the previous menu.
+                  </p>
+                  <div class="button-group">
+                    <a href="/add_server" class="glass-button primary">
+                      <span class="btn-icon">➕</span>
+                      Add New Server
+                    </a>
+                    <a href="/servers" class="glass-button secondary"> Back </a>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="servers-info">
+            <div class="glass-card stats-card">
+              <div class="card-header">
+                <div>
+                  <h3>Server Statistics</h3>
+                  <p class="header-description">
+                    Overview of your server status
+                  </p>
+                </div>
+              </div>
+              <div class="stats-grid">
+                <div
+                  class="stat-item clickable"
+                  onclick="window.location.href='/servers?filter=expired'"
+                >
+                  <div class="stat-value">
+                    {{ server_expired | default(0) }}
+                  </div>
+                  <div class="stat-label expired">Expired</div>
+                </div>
+                <div
+                  class="stat-item clickable"
+                  onclick="window.location.href='/servers?filter=warning'"
+                >
+                  <div class="stat-value">
+                    {{ server_warning | default(0) }}
+                  </div>
+                  <div class="stat-label warning">Warning</div>
+                </div>
+                <div
+                  class="stat-item clickable"
+                  onclick="window.location.href='/servers?filter=safe'"
+                >
+                  <div class="stat-value">{{ server_safe | default(0) }}</div>
+                  <div class="stat-label safe">Active</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card actions-card">
+              <div class="card-header">
+                <div>
+                  <h3>Quick Actions</h3>
+                  <p class="header-description">Frequently used operations</p>
+                </div>
+              </div>
+              <div class="quick-actions-grid">
+                <a href="/add_server" class="quick-action-item">
+                  <div class="quick-action-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12 5v14M5 12h14"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="quick-action-label">Add Server</div>
+                </a>
+                <a href="/domains" class="quick-action-item">
+                  <div class="quick-action-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M3 12h18"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M12 3c2.5 2.7 4 6 4 9s-1.5 6.3-4 9M12 3c-2.5 2.7-4 6-4 9s1.5 6.3 4 9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="quick-action-label">Domains</div>
+                </a>
+                <a href="/settings" class="quick-action-item">
+                  <div class="quick-action-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                      />
+                      <path
+                        d="M19.4 15a1 1 0 0 1 .2 1.1l-1 1.7a1 1 0 0 1-1.1.5l-1.9-.6a7.2 7.2 0 0 1-1.1.7l-.3 2a1 1 0 0 1-1 .9h-2a1 1 0 0 1-1-.9l-.3-2a7.2 7.2 0 0 1-1.1-.7l-1.9.6a1 1 0 0 1-1.1-.5l-1-1.7a1 1 0 0 1 .2-1.1l1.6-1.3a7.6 7.6 0 0 1 0-1.4L4.5 11a1 1 0 0 1-.2-1.1l1-1.7a1 1 0 0 1 1.1-.5l1.9.6c.36-.26.74-.5 1.14-.69l.3-2a1 1 0 0 1 1-.89h2a1 1 0 0 1 1 .89l.3 2c.4.2.78.43 1.14.69l1.9-.6a1 1 0 0 1 1.1.5l1 1.7a1 1 0 0 1-.2 1.1l-1.6 1.3c.06.46.06.94 0 1.4l1.6 1.3Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                      />
+                    </svg>
+                  </div>
+                  <div class="quick-action-label">Settings</div>
+                </a>
+                <a href="/" class="quick-action-item">
+                  <div class="quick-action-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M3 10.5 12 3l9 7.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M5 10.5V20h14v-9.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="quick-action-label">Dashboard</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% else %}
+      <div class="content-grid center-main">
+        <div class="main-content">
+          <div class="empty-state">
+            <div class="empty-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="64"
+                height="64"
+                fill="none"
+                aria-hidden="true"
+              >
+                <rect
+                  x="3"
+                  y="4"
+                  width="18"
+                  height="12"
+                  rx="2"
+                  ry="2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <rect
+                  x="9"
+                  y="18"
+                  width="6"
+                  height="2"
+                  rx="1"
+                  ry="1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>No servers found</h3>
+            <p>
+              You can use the button below to add a new server or return to the
+              previous menu.
+            </p>
+            <div class="button-group">
+              <a href="/add_server" class="glass-button primary">
+                <span class="btn-icon">+</span>
+                Add New Server
+              </a>
+              <a href="/" class="glass-button secondary"> Back </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div id="serverCostModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Server Cost Analysis</h2>
+          <button class="modal-close" onclick="closeServerCostModal()">
+            &times;
+          </button>
+        </div>
+        <div class="cost-grid-simple">
+          <div class="cost-item">
+            <h3>Total Servers</h3>
+            <div class="cost-value">{{ total_servers | default(0) }}</div>
+          </div>
+          <div class="cost-item">
+            <h3>Total Cost</h3>
+            <div class="cost-value">
+              ${{ "%.2f"|format(server_total_cost | default(0)) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="notification" class="notification hidden"></div>
+
+    <script>
+      function toggleFilterDropdown() {
+        const filterDropdown = document.querySelector(".filter-dropdown");
+        const isMobile =
+          window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+        if (isMobile) {
+          openFilterOverlay(filterDropdown);
+          return;
+        }
+        filterDropdown.classList.toggle("active");
+      }
+
+      function openFilterOverlay(dropdownEl) {
+        const existing = document.getElementById("filterOverlay");
+        if (existing) existing.parentNode.removeChild(existing);
+
+        const overlay = document.createElement("div");
+        overlay.className = "label-dropdown";
+        overlay.id = "filterOverlay";
+        overlay.innerHTML = `
+                    <div class=\"label-dropdown-content\">
+                        <div class=\"label-dropdown-header\">
+                            <h3>Filter</h3>
+                            <button class=\"label-dropdown-close\" onclick=\"closeFilterOverlay()\">✕</button>
+                        </div>
+                        <div class=\"label-options-container\" id=\"filterOverlayOptions\"></div>
+                    </div>`;
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) closeFilterOverlay();
+        });
+        document.body.appendChild(overlay);
+        requestAnimationFrame(() => overlay.classList.add("active"));
+
+        const optionsContainer = overlay.querySelector("#filterOverlayOptions");
+        const inlineContent = dropdownEl.querySelector(".filter-content");
+        if (inlineContent) {
+          const sections = inlineContent.querySelectorAll(".filter-section");
+          sections.forEach((section) => {
+            const titleText =
+              section.querySelector("h4")?.textContent?.trim() || "";
+            const title = document.createElement("div");
+            title.className = "filter-overlay-section-title";
+            title.textContent = titleText;
+            optionsContainer.appendChild(title);
+
+            const links = section.querySelectorAll("a");
+            links.forEach((link) => {
+              const item = document.createElement("div");
+              item.className = "label-option";
+
+              item.innerHTML = link.innerHTML;
+              item.onclick = () => {
+                window.location.href = link.getAttribute("href");
+              };
+              optionsContainer.appendChild(item);
+            });
+          });
+        }
+      }
+
+      function closeFilterOverlay() {
+        const el = document.getElementById("filterOverlay");
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }
+
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".filter-dropdown")) {
+          document.querySelectorAll(".filter-dropdown").forEach((dropdown) => {
+            dropdown.classList.remove("active");
+          });
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          document.querySelectorAll(".filter-dropdown").forEach((dropdown) => {
+            dropdown.classList.remove("active");
+          });
+        }
+      });
+
+      function startLoadingAndNavigate(href) {
+        if (window.__wgNavInFlight) {
+          return;
+        }
+        window.__wgNavInFlight = true;
+        const loadingScreen = document.getElementById("loadingScreen");
+        const bar = loadingScreen
+          ? loadingScreen.querySelector(".loading-progress-bar")
+          : null;
+        if (!loadingScreen || !bar) {
+          window.location.href = href;
+          return;
+        }
+
+        bar.style.transition = "none";
+        bar.style.width = "0%";
+
+        void bar.offsetWidth;
+
+        loadingScreen.style.display = "flex";
+        loadingScreen.classList.remove("hidden");
+
+        requestAnimationFrame(() => {
+          let navigated = false;
+          const navigateOnce = () => {
+            if (navigated) return;
+            navigated = true;
+            window.location.href = href;
+          };
+          const onDone = (ev) => {
+            if (ev.propertyName === "width") {
+              bar.removeEventListener("transitionend", onDone);
+              navigateOnce();
+            }
+          };
+          bar.addEventListener("transitionend", onDone);
+
+          bar.style.transition = "width 900ms cubic-bezier(0.4, 0, 0.2, 1)";
+          bar.style.width = "100%";
+
+          setTimeout(navigateOnce, 1200);
+        });
+      }
+
+      window.addEventListener("load", function () {
+        const loadingScreen = document.getElementById("loadingScreen");
+        const bar = loadingScreen
+          ? loadingScreen.querySelector(".loading-progress-bar")
+          : null;
+        if (!loadingScreen) return;
+        setTimeout(() => {
+          loadingScreen.classList.add("hidden");
+          loadingScreen.style.display = "none";
+          if (bar) {
+            bar.style.transition = "none";
+            bar.style.width = "0%";
+          }
+        }, 150);
+      });
+
+      document.addEventListener(
+        "click",
+        function (e) {
+          const anchor = e.target.closest("a");
+          if (!anchor) return;
+          const href = anchor.getAttribute("href") || anchor.href;
+          if (
+            !href ||
+            href.startsWith("#") ||
+            anchor.target === "_blank" ||
+            href.startsWith("javascript:")
+          )
+            return;
+          if (window.__wgNavInFlight) {
+            e.preventDefault();
+            return;
+          }
+          e.preventDefault();
+          startLoadingAndNavigate(href);
+        },
+        true
+      );
+
+      function refreshData() {
+        showNotification("Refreshing data...", "success");
+        setTimeout(() => location.reload(), 500);
+      }
+
+      function showNotification(message, type = "success") {
+        const notification = document.getElementById("notification");
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.classList.remove("hidden");
+        setTimeout(() => {
+          notification.classList.add("hidden");
+        }, 3000);
+      }
+
+      function editServer(serverName) {
+        const cleanName = serverName.trim();
+        window.location.href = `/servers/edit/${encodeURIComponent(cleanName)}`;
+      }
+
+      async function deleteServer(serverName) {
+        const cleanName = serverName.trim();
+
+        if (confirm(`Are you sure you want to delete server "${cleanName}"?`)) {
+          try {
+            const response = await fetch(
+              `/servers/delete/${encodeURIComponent(cleanName)}`,
+              {
+                method: "POST",
+              }
+            );
+
+            if (response.ok) {
+              showNotification("Server deleted successfully!", "error");
+              setTimeout(() => location.reload(), 1000);
+            } else {
+              showNotification("Error deleting server", "error");
+            }
+          } catch (error) {
+            showNotification("Network error occurred", "error");
+          }
+        }
+      }
+
+      function openServerCostModal() {
+        const modal = document.getElementById("serverCostModal");
+        modal.style.display = "block";
+
+        setTimeout(() => {
+          modal.classList.add("modal-open");
+        }, 10);
+      }
+
+      function closeServerCostModal() {
+        const modal = document.getElementById("serverCostModal");
+        modal.classList.remove("modal-open");
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 300);
+      }
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("serverCostModal");
+        if (event.target === modal) {
+          closeServerCostModal();
+        }
+      };
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeServerCostModal();
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const dropdown = document.querySelector(".dropdown");
+        const dropdownTrigger = document.querySelector(".dropdown-trigger");
+        const dropdownContent = document.querySelector(".dropdown-content");
+
+        if (dropdown && dropdownTrigger && dropdownContent) {
+          let isOpen = false;
+          let animationTimeout = null;
+
+          dropdownTrigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (isOpen) {
+              closeDropdown();
+            } else {
+              openDropdown();
+            }
+          });
+
+          function openDropdown() {
+            isOpen = true;
+            dropdown.classList.add("active");
+
+            const items = dropdownContent.querySelectorAll(".dropdown-item");
+            items.forEach((item) => {
+              item.style.animation = "none";
+              item.offsetHeight;
+              item.style.animation = null;
+            });
+          }
+
+          function closeDropdown() {
+            isOpen = false;
+            dropdown.classList.add("closing");
+
+            if (animationTimeout) {
+              clearTimeout(animationTimeout);
+            }
+
+            animationTimeout = setTimeout(() => {
+              dropdown.classList.remove("active", "closing");
+              animationTimeout = null;
+            }, 300);
+          }
+
+          document.addEventListener("click", function (e) {
+            if (!dropdown.contains(e.target)) {
+              if (isOpen) {
+                closeDropdown();
+              }
+            }
+          });
+
+          dropdownContent.addEventListener("click", function () {
+            if (isOpen) {
+              closeDropdown();
+            }
+          });
+        }
+      });
+
+      (function () {
+        function computeRightColumnHeightFromTop(leftCard, rightCol) {
+          const leftRect = leftCard.getBoundingClientRect();
+
+          const cards = rightCol.querySelectorAll(".glass-card");
+          if (!cards.length) return rightCol.getBoundingClientRect().height;
+          const last = cards[cards.length - 1];
+          const lastRect = last.getBoundingClientRect();
+          const lastMb = parseFloat(getComputedStyle(last).marginBottom || "0");
+          const bottom = lastRect.bottom + lastMb;
+          const height = bottom - leftRect.top;
+          return Math.max(0, Math.round(height));
+        }
+
+        function syncLeftCardHeight() {
+          const isMobile =
+            window.matchMedia &&
+            window.matchMedia("(max-width: 768px)").matches;
+          if (isMobile) {
+            const listEl = document.querySelector(".server-list");
+            if (listEl) {
+              listEl.style.maxHeight = "55vh";
+              listEl.style.overflowY = "auto";
+            }
+            return;
+          }
+          const mainCard = document.querySelector(
+            ".servers-main .glass-card.list-container"
+          );
+          const rightCol = document.querySelector(".servers-info");
+          const listEl = document.querySelector(".server-list");
+          if (!mainCard || !rightCol || !listEl) return;
+
+          mainCard.style.height = "auto";
+
+          const target = computeRightColumnHeightFromTop(mainCard, rightCol);
+
+          mainCard.style.height = `${target}px`;
+
+          listEl.style.overflowY = "auto";
+          listEl.style.maxHeight = "100%";
+        }
+
+        const ro = new ResizeObserver(() =>
+          requestAnimationFrame(syncLeftCardHeight)
+        );
+        window.addEventListener("load", () =>
+          requestAnimationFrame(syncLeftCardHeight)
+        );
+        window.addEventListener("resize", () =>
+          requestAnimationFrame(syncLeftCardHeight)
+        );
+        document.addEventListener("DOMContentLoaded", () => {
+          const rightCol = document.querySelector(".servers-info");
+          if (rightCol) ro.observe(rightCol);
+          const leftList = document.querySelector(".server-list");
+          if (leftList) ro.observe(leftList);
+          requestAnimationFrame(syncLeftCardHeight);
+        });
+      })();
+    </script>
+  </body>
+</html>
