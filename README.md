@@ -62,6 +62,6 @@ If you like this project, don't forget to star the repo:
 
 <div align="center" style="margin-top:10px;">
   <a href="https://starchart.cc/AsanFillter/watchguard">
-    <img src="https://starchart.cc/AsanFillter/watchguard.svg" alt="Stargazers over time" />
+    <img src="https://starchart.cc/AsanFillter/watchguard.svg?variant=adaptive" alt="Stargazers over time" />
   </a>
 </div>
